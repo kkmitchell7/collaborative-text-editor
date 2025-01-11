@@ -5,6 +5,7 @@ import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import { useParams} from 'react-router-dom'
 
+const SAVE_INTERVAL_MS = 2000 //Dictates how often the document data is saved
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ font: [] }],
@@ -35,7 +36,6 @@ export default function TextEditor() {
         }
     },[])
     
-
     /**
      * Load the current document using the documentId
      */
@@ -52,7 +52,20 @@ export default function TextEditor() {
 
     },[socket,quill,documentId])
 
+    /**
+     * Save the current document data
+     */
+    useEffect(()=>{
+        if (socket == null || quill == null) return
+        const interval = setInterval(()=>{
+            socket.emit('save-document',quill.getContents())
+        }, SAVE_INTERVAL_MS)
 
+        return ()=>{
+            clearInterval(interval)
+        }
+
+    },[socket,quill])
 
     /**
      * Recieves text changes from the server
@@ -89,9 +102,8 @@ export default function TextEditor() {
         }
     },[socket,quill])
     
-    
     /**
-     * Prevents duplication of quill element upon rerender
+     * Creates quill object, prevents duplication of quill element upon rerender
      */
     const wrapperRef = useCallback((wrapper)=>{ //wrapper is div object, useCallback invoked with the DOM element attached/detached from component
         if (wrapper == null) return
@@ -105,7 +117,7 @@ export default function TextEditor() {
         q.setText('Loading...')
         setQuill(q)
 
-    },[]) //stable function across renders
+    },[])
     
     return (
     <div className="container" ref={wrapperRef}></div> //once mounted in the DOM, react passes div to wrapperRef function

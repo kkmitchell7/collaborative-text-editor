@@ -14,7 +14,7 @@ const io = require('socket.io')(3001, {
  */
 io.on("connection", socket =>{
     socket.on('send-changes', delta =>{ //Listen for text changes
-        socket.broadcast.emit("recieve-changes",delta) //Broadcast to all connections these changes
+        socket.broadcast.emit("recieve-changes",delta) //Broadcast to all connections these changes, except the one that emmited the event
     }) 
     console.log('connected');
 })

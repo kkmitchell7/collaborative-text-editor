@@ -3,6 +3,7 @@ import Quill from 'quill'
 import './styles.css'
 import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
+import { useParams} from 'react-router-dom'
 
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
@@ -17,9 +18,11 @@ const TOOLBAR_OPTIONS = [
   ]
 
 export default function TextEditor() {
+    const {id: documentId} = useParams()
     const [socket, setSocket] = useState()
     const [quill, setQuill] = useState()
     
+
     /**
      * Opens and cleans up web socket connection
      */
@@ -32,6 +35,13 @@ export default function TextEditor() {
         }
     },[])
     
+    useEffect(()=>{
+
+
+    },[socket,quill,documentId])
+
+
+
     /**
      * Recieves text changes from the server
      */

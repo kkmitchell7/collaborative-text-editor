@@ -5,7 +5,7 @@ import "quill/dist/quill.snow.css"
 import {io} from 'socket.io-client'
 import { useParams} from 'react-router-dom'
 
-const SAVE_INTERVAL_MS = 2000 //Dictates how often the document data is saved
+const SAVE_INTERVAL_MS = 2000 //Dictates how often the document data is saved, 2 seconds
 const TOOLBAR_OPTIONS = [
     [{ header: [1, 2, 3, 4, 5, 6, false] }],
     [{ font: [] }],
@@ -19,9 +19,9 @@ const TOOLBAR_OPTIONS = [
   ]
 
 export default function TextEditor() {
-    const {id: documentId} = useParams()
-    const [socket, setSocket] = useState()
-    const [quill, setQuill] = useState()
+    const {id: documentId} = useParams() //Id of the current document
+    const [socket, setSocket] = useState() //Current instance of socket.io
+    const [quill, setQuill] = useState() //Current instance of quill
     
 
     /**

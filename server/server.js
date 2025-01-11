@@ -1,5 +1,5 @@
 /**
- * Set up database library via mongoose for mongoDB
+ * Set up database library via mongoose for mongoDB and import Document model
  */
 const mongoose = require('mongoose')
 const Document = require('./Document')
@@ -11,7 +11,6 @@ mongoose.connect('mongodb://localhost/document_data',{
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
-
 
 
 /**
@@ -53,6 +52,12 @@ io.on("connection", socket =>{
     console.log('connected');
 })
 
+
+/**
+ * 
+ * @param {*} id of document
+ * @returns Created document or document found in the database
+ */
 async function findOrCreateDocument(id){
     if (id == null) return
 

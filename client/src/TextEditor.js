@@ -35,7 +35,19 @@ export default function TextEditor() {
         }
     },[])
     
+
+    /**
+     * Load the current document using the documentId
+     */
     useEffect(()=>{
+        if (socket == null || quill == null) return
+
+        socket.once("load-document",document =>{ //Listens for load-document once, then cleans up listener
+            quill.setContents(document)
+            quill.enable() //Enable quill since we've loaded the document
+        })
+
+        socket.emit('get-document',documentId)
 
 
     },[socket,quill,documentId])
@@ -83,10 +95,14 @@ export default function TextEditor() {
      */
     const wrapperRef = useCallback((wrapper)=>{ //wrapper is div object, useCallback invoked with the DOM element attached/detached from component
         if (wrapper == null) return
+        
         wrapper.innerHTML = '' //reset the div
         const editor = document.createElement('div') //create new div
         wrapper.append(editor) //append new div to wrapper
+        
         const q = new Quill(editor,{ theme: 'snow', modules: {toolbar: TOOLBAR_OPTIONS}}); //create Quill instance in new div
+        q.disable() //Disable quill until we load the current document from the server
+        q.setText('Loading...')
         setQuill(q)
 
     },[]) //stable function across renders

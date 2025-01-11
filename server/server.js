@@ -13,8 +13,19 @@ const io = require('socket.io')(3001, {
  * Listens for text changes being sent, and broadcasts these changes to all clients
  */
 io.on("connection", socket =>{
-    socket.on('send-changes', delta =>{ //Listen for text changes
-        socket.broadcast.emit("recieve-changes",delta) //Broadcast to all connections these changes, except the one that emmited the event
-    }) 
+    //Listen for get document request
+    socket.on('get-document', documentId =>{
+        const data = ""
+        socket.join(documentId) //put this connection into the room labeled by documentId
+
+        socket.emit('load-document',data)
+
+        //Listen for text changes
+        socket.on('send-changes', delta =>{
+        socket.broadcast.to(documentId).emit("recieve-changes",delta) //Broadcast to all connections in the same room these changes, except the one that emmited the event
+        }) 
+    })
+
+    
     console.log('connected');
 })

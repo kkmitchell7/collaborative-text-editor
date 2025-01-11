@@ -44,6 +44,6 @@ This is a real-time collaborative text editor built with **React**, **Socket.IO*
 
 5. **Access the App**:
     Open your browser and go to http://localhost:3000
-    Each document is identified by a unique ID in the URL. For example: http://localhost:3000/documents/<document-id>
+    Each document is identified by a unique ID in the URL. For example: http://localhost:3000/documents/id
 
 

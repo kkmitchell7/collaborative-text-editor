@@ -1,29 +1,58 @@
-/**
- * Set up database library via mongoose for mongoDB and import Document model
- */
-const mongoose = require('mongoose')
-const Document = require('./Document')
+const express = require('express');
+const mongoose = require('mongoose');
+const cors = require('cors');
+const Document = require('./models/Document')
+const http = require('http');
+
+
 
 /**
- * Connect to mongoose
+ * Express/HTTP server functionality
  */
-mongoose.connect('mongodb://localhost/document_data',{
+
+
+const authRoutes = require('./routes/auth');
+const documentRoutes = require('./routes/documents');
+
+const app = express();
+
+// Middleware
+app.use(
+    cors({
+        origin: 'http://localhost:3000',
+        methods: ['GET', 'POST'],
+    })
+);
+app.use(express.json());
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost/document_data', {
     useNewUrlParser: true,
     useUnifiedTopology: true,
 });
 
+// Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/documents', documentRoutes);
+
+const server = http.createServer(app);
+
+/**
+ * 
+ * Socket functionality
+ * 
+ */
 
 /**
  * Set up socket library via socket.io
  */
-const io = require('socket.io')(3001, {
-    cors: { //cors allows support for client & server to have diff urls
-        origin: 'http://localhost:3000',
-        methods: ['GET','POST'],
-    },
-})
+    const io = require('socket.io')(server, {
+        cors: {
+            origin: 'http://localhost:3000',
+            methods: ['GET', 'POST'],
+        },
+    });
 
-const defaultValue = "" //Default document data
 
 /**
  * Establishes real time two way communication, persistent connection via the socket
@@ -32,7 +61,7 @@ const defaultValue = "" //Default document data
 io.on("connection", socket =>{
     //Listen for get document request
     socket.on('get-document', async documentId =>{
-        const document = await findOrCreateDocument(documentId)
+        const document = await Document.findById(id);
         socket.join(documentId) //put this connection into the room labeled by documentId
 
         socket.emit('load-document',document.data)
@@ -50,19 +79,14 @@ io.on("connection", socket =>{
 
     
     console.log('connected');
+
+    //Need to handle disconnection
 })
 
 
-/**
- * 
- * @param {*} id of document
- * @returns Created document or document found in the database
- */
-async function findOrCreateDocument(id){
-    if (id == null) return
 
-    const document = await Document.findById(id)
-    if (document) return document
-
-    return await Document.create({_id:id, data:defaultValue})
-}
+// Start the server
+const PORT = process.env.PORT || 3001;
+server.listen(PORT, () => {
+    console.log(`Server running at http://localhost:${PORT}`);
+});

@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
+import TitleModal from '../components/TitleModal'
 
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
-    //const [user, setUser] = useState(null);
-    //const [token, setToken] = useState(null);
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const userId = JSON.parse(localStorage.getItem('userId'));
@@ -33,31 +33,6 @@ export default function Documents() {
         }
     },[]);
 
-    async function handleCreateDocument(){
-        const createDocument = async () => {
-            try {
-                const response = await fetch(`${backendUrl}/api/documents/`, {
-                    method: 'POST',
-                    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ userId })
-                });
-                const document = await response.json();
-                return document._id;
-            } catch (error) {
-                console.error('Error creating document:', error);
-                return null;
-            }
-        };
-
-        if (token && userId) {
-            
-            const documentId = await createDocument();
-            navigate(`/documents/${documentId}`);
-            
-        }
-        
-    };
-
     if (!token) {
         return <Navigate to="/login" />;
     }
@@ -67,12 +42,16 @@ export default function Documents() {
             <h1>Your Documents</h1>
             <ul>
                 {documents.map((doc) => (
-                    <li key={doc._id}>{doc._id}</li>
+                    <button key={doc._id} onClick={() => navigate(`/documents/${doc._id}`)}>{doc.title}</button>
                 ))}
             </ul>
-            <button onClick={() => handleCreateDocument()}>
+            <button onClick={() => setModalOpen(true)}>
                 Create New Document 
             </button>
+            <TitleModal
+                isOpen={isModalOpen}
+                onClose={() => setModalOpen(false)} // Close the modal
+            />
         </div>
     );
 }

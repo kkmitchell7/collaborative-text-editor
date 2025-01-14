@@ -29,7 +29,7 @@ router.get('/users/:id', async (req, res) => {
  */
 router.post('/', async (req, res) => {
     try {
-        const { userId } = req.body;
+        const { userId, title } = req.body;
 
         if (!userId) {
             return res.status(400).json({ error: 'userId is required' });
@@ -37,7 +37,7 @@ router.post('/', async (req, res) => {
 
         // Create the new document
         const newDocument = new Document({
-            data: '' // Default content is an empty string
+            title:title, data: '' // Default content is an empty string
         });
 
         await newDocument.save();

@@ -2,6 +2,7 @@ const express = require('express');
 const mongoose = require('mongoose');
 const cors = require('cors');
 const Document = require('./models/Document')
+const User = require('./models/User')
 const http = require('http');
 
 
@@ -60,7 +61,7 @@ const server = http.createServer(app);
  */
 io.on("connection", socket =>{
     //Listen for get document request
-    socket.on('get-document', async documentId =>{
+    socket.on('get-document', async ({ documentId, userId }) =>{
         if (!mongoose.isValidObjectId(documentId)) {
             socket.emit('error', { message: 'Not a valid document ID' });
             return; // Exit early to avoid further processing
@@ -73,6 +74,15 @@ io.on("connection", socket =>{
             socket.emit('error', { message: 'Document doesnt exist' });
             return; // Exit if no document is found
         }
+
+        // Fetch the user and check ownership
+        const user = await User.findById(userId);
+        if (!user || !user.documents.includes(documentId)) {
+            socket.emit('error', { message: 'Access denied. You do not own this document.' });
+            return;
+        }
+
+
         socket.join(documentId) //put this connection into the room labeled by documentId
 
         socket.emit('load-document',document.data)

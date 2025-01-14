@@ -1,6 +1,7 @@
 const {Schema, model} = require('mongoose')
 
 const Document = new Schema({
+    title:{type: String, default: 'Untitled'},
     data: Object,
     createdAt: {
         type: Date,

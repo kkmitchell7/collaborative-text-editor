@@ -25,6 +25,7 @@ export default function TextEditor() {
     const [error, setError] = useState(null); 
     
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
 
     /**
@@ -60,7 +61,7 @@ export default function TextEditor() {
             setError(error.message); 
         });
 
-        socket.emit('get-document',documentId)
+        socket.emit('get-document',{documentId,userId})
 
 
     },[socket,quill,documentId])

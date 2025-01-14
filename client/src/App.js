@@ -1,4 +1,4 @@
-import TextEditor from "./pages/TextEditor/index.js";
+import TextEditor from "./pages/TextEditor";
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
 import Signup from "./pages/Signup"

@@ -24,37 +24,48 @@ export default function TextEditor() {
     const [quill, setQuill] = useState() //Current instance of quill
     const [error, setError] = useState(null); 
     
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const token = localStorage.getItem('token');
 
     /**
      * Opens and cleans up web socket connection
      */
     useEffect(()=>{
-        const s = io("http://localhost:3001") //connection
+    
+        
+        const s = io(backendUrl) //connection
         setSocket(s)
 
         return ()=>{ //Cleanup, disconnect web socket when component unmounts
             s.disconnect()
         }
-    },[])
+        
+
+    },[backendUrl])
     
     /**
      * Load the current document using the documentId
      */
-    useEffect(()=>{
-        if (socket == null || quill == null) return
 
+    useEffect(()=>{
+        if (socket == null || quill == null ) return
+        
         socket.once("load-document",document =>{ //Listens for load-document once, then cleans up listener
-            if (!document){
-                setError("Document not found");
-            }
             quill.setContents(document)
             quill.enable() //Enable quill since we've loaded the document
         })
+
+        socket.on("error", (error) => {
+            console.error("Error received from server:", error);
+            setError(error.message); 
+        });
 
         socket.emit('get-document',documentId)
 
 
     },[socket,quill,documentId])
+
+    
 
     /**
      * Save the current document data

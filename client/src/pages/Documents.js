@@ -1,17 +1,25 @@
 import React, { useEffect, useState } from 'react';
-import { Navigate } from 'react-router-dom';
-import { v4 as uuidV4 } from 'uuid';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 export default function Documents() {
-  const [documents, setDocuments] = useState([]);
+    const [documents, setDocuments] = useState([]);
+    //const [user, setUser] = useState(null);
+    //const [token, setToken] = useState(null);
+
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
+
+    const navigate = useNavigate();
+    
 
     // Fetch documents when the component loads
     useEffect(() => {
         const fetchDocuments = async () => {
             try {
-                const response = await fetch('/api/documents', {
-                    headers: { Authorization: `Bearer ${token}` },
+                const response = await fetch(`${backendUrl}/api/documents/users/${userId}`, {
+                    method: 'GET',
+                    headers: { Authorization: `Bearer ${token}` }
                 });
                 const data = await response.json();
                 setDocuments(data);
@@ -20,10 +28,35 @@ export default function Documents() {
             }
         };
 
-        if (token) {
+        if (token && userId) {
             fetchDocuments();
         }
-    }, [token]);
+    },[]);
+
+    async function handleCreateDocument(){
+        const createDocument = async () => {
+            try {
+                const response = await fetch(`${backendUrl}/api/documents/`, {
+                    method: 'POST',
+                    headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ userId })
+                });
+                const document = await response.json();
+                return document._id;
+            } catch (error) {
+                console.error('Error creating document:', error);
+                return null;
+            }
+        };
+
+        if (token && userId) {
+            
+            const documentId = await createDocument();
+            navigate(`/documents/${documentId}`);
+            
+        }
+        
+    };
 
     if (!token) {
         return <Navigate to="/login" />;
@@ -34,11 +67,11 @@ export default function Documents() {
             <h1>Your Documents</h1>
             <ul>
                 {documents.map((doc) => (
-                    <li key={doc.id}>{doc.name}</li>
+                    <li key={doc._id}>{doc._id}</li>
                 ))}
             </ul>
-            <button onClick={() => <Navigate to={`/documents/${uuidV4()}`} />}>
-                Create New Document
+            <button onClick={() => handleCreateDocument()}>
+                Create New Document 
             </button>
         </div>
     );

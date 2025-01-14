@@ -19,8 +19,9 @@ export default function Login() {
             });
 
             if (response.ok) {
-                const { token } = await response.json();
+                const { userId,token } = await response.json();
                 localStorage.setItem('token', token);
+                localStorage.setItem('userId', JSON.stringify(userId));
                 navigate('/documents'); // Redirect to documents page
             } else {
                 setError('Invalid credentials');

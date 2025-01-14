@@ -61,7 +61,18 @@ const server = http.createServer(app);
 io.on("connection", socket =>{
     //Listen for get document request
     socket.on('get-document', async documentId =>{
-        const document = await Document.findById(id);
+        if (!mongoose.isValidObjectId(documentId)) {
+            socket.emit('error', { message: 'Not a valid document ID' });
+            return; // Exit early to avoid further processing
+        }
+
+        try {
+
+        const document = await Document.findById(documentId);
+        if (!document) {
+            socket.emit('error', { message: 'Document doesnt exist' });
+            return; // Exit if no document is found
+        }
         socket.join(documentId) //put this connection into the room labeled by documentId
 
         socket.emit('load-document',document.data)
@@ -74,7 +85,10 @@ io.on("connection", socket =>{
         //Listen for save document emission
         socket.on("save-document", async data =>{
             await Document.findByIdAndUpdate(documentId, {data})
-        })
+        })} catch (error) {
+            console.error('Error handling document:', error);
+            socket.emit('error', { message: 'An error occurred while processing the document' });
+        }
     })
 
     

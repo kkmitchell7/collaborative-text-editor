@@ -19,12 +19,12 @@ export default function Documents() {
     useEffect(() => {
         const fetchDocuments = async () => {
             try {
-                const response = await fetch(`${backendUrl}/api/documents/users/${userId}`, {
+                const response = await fetch(`${backendUrl}/api/users/${userId}/documents/accessible`, {
                     method: 'GET',
                     headers: { Authorization: `Bearer ${token}` }
                 });
-                const data = await response.json();
-                setDocuments(data);
+                const {documents} = await response.json();
+                setDocuments(documents);
             } catch (error) {
                 console.error('Error fetching documents:', error);
             }

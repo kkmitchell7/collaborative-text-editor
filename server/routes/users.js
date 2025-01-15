@@ -15,7 +15,7 @@ const router = express.Router();
  * @returns {Object} 200 - The user ID associated with the username
  * @returns {Object} 500 - An error message if an internal server error has occurred
  */
-router.get('/api/users/ID/:username', async (req, res) => {
+router.get('/ID/:username', async (req, res) => {
     try {
         const username = req.params.username;
 
@@ -40,7 +40,7 @@ router.get('/api/users/ID/:username', async (req, res) => {
 
 
 /**
- * GET /api/users/:userId/documents/shared
+ * GET /api/users/:userId/documents/owned
  * Get all documents owned by a specific user
  * 
  * @param {string} userId - The ID of the user which we're getting all their owned documents
@@ -49,7 +49,7 @@ router.get('/api/users/ID/:username', async (req, res) => {
  * @returns {Object} 200 - An object containing an array of document objects owned by the user, an empty array if the user owns no documents
  * @returns {Object} 500 - Error message if there was an internal server error
  */
-router.get('/api/users/:userId/documents/owned', async (req, res) => {
+router.get('/:userId/documents/owned', async (req, res) => {
     try {
         const userId = req.params.userId;
         if (!userId) {
@@ -75,7 +75,7 @@ router.get('/api/users/:userId/documents/owned', async (req, res) => {
  * @returns {Object} 200 - An object containing an array of document objects shared with the user, an empty array if the user has no documents shared with them
  * @returns {Object} 500 - An error message if an internal server error has occured
  */
-router.get('/api/users/:userId/documents/shared', async (req, res) => {
+router.get('/:userId/documents/shared', async (req, res) => {
     try {
         const userId = req.params.userId;
 
@@ -98,7 +98,7 @@ router.get('/api/users/:userId/documents/shared', async (req, res) => {
 
 
 /**
- * GET /api/users/:userId/documents/shared
+ * GET /api/users/:userId/documents/accessible
  * Get all documents a specific user has access to (owned and shared with documents)
  * 
  * @param {string} userId - the ID of the user which we're getting all the documents they have access to
@@ -107,7 +107,7 @@ router.get('/api/users/:userId/documents/shared', async (req, res) => {
  * @returns {Object[]} 200 - An object containing an array of document objects the user has access to, an empty array if the user has no documents it has access to
  * @returns {Object} 500 - An error message if an internal server error has occured
  */
-router.get('/api/users/:userId/documents/shared', async (req, res) => {
+router.get('/:userId/documents/accessible', async (req, res) => {
     try {
         const userId = req.params.userId;
 
@@ -116,7 +116,7 @@ router.get('/api/users/:userId/documents/shared', async (req, res) => {
         }
 
         const documents = await Document.find({
-            usersWithAccess: userId            // User is in the usersWithAccess array  
+            usersWithAccess: userId
         });
 
 

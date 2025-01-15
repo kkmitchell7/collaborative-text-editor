@@ -1,59 +1,110 @@
 /* Container for the grid */
 .document-icons-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid based on container width */
-    gap: 20px; /* Space between icons */
-    padding: 20px;
-    justify-items: center; /* Center items in each grid cell */
-  }
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); /* Adjust grid based on container width */
+  gap: 20px; /* Space between icons */
+  padding: 20px;
+  justify-items: center; /* Center items in each grid cell */
+}
 
-  
-  /* Styling for the icon container and button */
-  .document-icon-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    border-radius: 8px;
-    transition: background-color 0.3s ease;
-    padding: 10px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .document-icon-button {
-    border: none;
-    background-color: transparent;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 150px;
-    height: 150px;
-    padding: 10px;
-    text-align: center;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-  
-  .document-icon-button:hover {
-    background-color: #f1f1f1;
-  }
-  
-  .document-icon {
-    width: 100%;
-    height: 100%;
-    background-color: #f0f0f0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 8px;
-    margin-bottom: 10px;
-  }
-  
-  .document-title {
-    font-size: 14px;
-    font-weight: bold;
-    color: #333;
-  }
+/* Container for each document icon and delete button */
+.document-icon-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative; /* Needed to position the delete button */
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+  padding: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Styling for the icon button */
+.document-icon-button {
+  border: none;
+  background-color: transparent;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 150px;
+  padding: 10px;
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.document-icon-button:hover {
+  background-color: #f1f1f1;
+}
+
+/* Styling for the document icon */
+.document-icon {
+  width: 100%;
+  height: 100%;
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+/* Title of the document */
+.document-title {
+  font-size: 14px;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Styling for the delete button */
+.document-delete-button {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background-color: #ff4d4d;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 10%;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: background-color 0.3s ease;
+}
+
+/* Hover effect for the delete button */
+.document-delete-button:hover {
+  background-color: #e60000;
+}
+
+/* Focus effect for delete button */
+.document-delete-button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.4);
+}
+
+
+.document-share-button {
+  position: absolute;
+  top: 5px;
+  left: 5px; /* Share button positioned on the left */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 8px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-right: 10px;
+  transition: background-color 0.3s ease;
+}
+
+.document-share-button:hover {
+  background-color: #45a049;
+}
+

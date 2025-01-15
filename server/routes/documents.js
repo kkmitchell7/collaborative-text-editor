@@ -10,7 +10,7 @@ const router = express.Router();
  * @body {string} userId - userId of the user creating the document which is the owner of the document
  * @body {string} title -  Title of the document to be created
  * 
- * @returns {Object} 201 - An object contianing a new document object which has been successfully created
+ * @returns {Object} 201 - An object contianing a new document ID which has been successfully created
  * @returns {Object} 400 - Error message if a userId or title is not provided in the request body
  * @returns {Object} 404 - Error message if a user cannot be found with that id
  * @returns {Object} 500 - Error message if a server error occurs
@@ -40,7 +40,7 @@ router.post('/', async (req, res) => {
         await newDocument.save();
 
         
-        res.status(201).json({newDocument:newDocument});
+        res.status(201).json({newDocumentId:newDocument._id});
     } catch (error) {
         console.error('Error creating document:', error);
         res.status(500).json({ error: 'Failed to create document' });

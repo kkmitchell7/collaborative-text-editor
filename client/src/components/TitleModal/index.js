@@ -19,8 +19,8 @@ const TitleModal = ({ isOpen, onClose }) => {
                     headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
                     body: JSON.stringify({ userId, title })//title here
                 });
-                const document = await response.json();
-                return document._id;
+                const {newDocumentId} = await response.json();
+                return newDocumentId;
             } catch (error) {
                 console.error('Error creating document:', error);
                 return null;

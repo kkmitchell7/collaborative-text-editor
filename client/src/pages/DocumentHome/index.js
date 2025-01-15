@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import TitleModal from '../components/TitleModal'
+import TitleModal from '../../components/TitleModal'
+import DocumentsGrid from '../../components/DocumentsGrid'
+import './styles.css'
 
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
@@ -33,21 +35,35 @@ export default function Documents() {
         }
     },[]);
 
+    const handleLogout = () => {
+        // Clear user and token from localStorage
+        localStorage.removeItem('userId');
+        localStorage.removeItem('token');
+        
+        navigate('/login');  // Go to login page
+      };
+
     if (!token) {
         return <Navigate to="/login" />;
     }
 
     return (
         <div>
-            <h1>Your Documents</h1>
+            <div className="logout-button-container">
+                <button className="logout-button" onClick={handleLogout}>
+                Logout
+                </button>
+            </div>
+            <div className="home-button-title">
+                <h1 className="home-title">Your Documents</h1>
+                <button className="create-doc-button" onClick={() => setModalOpen(true)}>
+                    Create New Document 
+                </button>
+            </div>
+            
             <ul>
-                {documents.map((doc) => (
-                    <button key={doc._id} onClick={() => navigate(`/documents/${doc._id}`)}>{doc.title}</button>
-                ))}
+                <DocumentsGrid documents={documents} navigate={navigate}/>
             </ul>
-            <button onClick={() => setModalOpen(true)}>
-                Create New Document 
-            </button>
             <TitleModal
                 isOpen={isModalOpen}
                 onClose={() => setModalOpen(false)} // Close the modal

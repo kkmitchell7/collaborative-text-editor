@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import './styles.css'
-import { Navigate, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const TitleModal = ({ isOpen, onClose }) => {
     const [title, setTitle] = useState('');
+    const [error, setError] = useState('');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
@@ -27,17 +28,27 @@ const TitleModal = ({ isOpen, onClose }) => {
         };
 
         if (token && userId) {
-            
-            const documentId = await createDocument(title);
-            if (documentId) {
-                navigate(`/documents/${documentId}`);
+
+            if (!title) {
+                setError('Title is required');
             } else {
-                console.error('Failed to create document');
+                setError('');
+                const documentId = await createDocument(title);
+                if (documentId) {
+                    navigate(`/documents/${documentId}`);
+                } else {
+                    console.error('Failed to create document');
+                }
             }
-            
         }
         
     };
+
+    const handleOnClose = () =>{
+        setError('');
+        onClose();
+    
+    }
 
     return isOpen ? (
         <div className="modal">
@@ -50,8 +61,10 @@ const TitleModal = ({ isOpen, onClose }) => {
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter title"
                 />
-                <button onClick={handleCreateDocument} className="modal-button">Submit</button>
-                <button onClick={onClose} className="modal-button">Cancel</button>
+                {error && <p style={{ color: 'red' }}>{error}</p>}
+                <button onClick={handleOnClose} className="modal-button">Cancel</button>
+                <button onClick={handleCreateDocument} className="modal-button">Create</button>
+                
             </div>
         </div>
     ) : null;

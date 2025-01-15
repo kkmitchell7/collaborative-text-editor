@@ -1,0 +1,74 @@
+
+* {
+    font-family: 'Poppins', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-weight:normal;
+  }
+
+  .home-button-title {
+    display: flex;
+    justify-content: space-between;  /* Ensures space between elements */
+    align-items: center;  /* Vertically center elements */
+    width: 100%;
+  }
+  
+  
+  /* Title styling */
+  .home-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px; /* Space below title */
+    margin: 30px;
+  }
+  
+  /* Button to create a new document */
+  .create-doc-button {
+    background-color: #4CAF50; /* Green background */
+    color: white;
+    font-size: 16px;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 20px; /* Space between button and document grid */
+    transition: background-color 0.3s ease;
+    margin-right: 20px;  /* Ensures no margin on the left */
+    position: absolute;
+    right: 0;  /* Positions the button all the way to the left */
+    
+  }
+  
+  button:hover {
+    background-color: #45a049; /* Darker green on hover */
+  }
+  
+  button:focus {
+    outline: none;
+  }
+  
+  /* Container for the logout button */
+.logout-button-container {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+  }
+  
+  /* Style for the logout button */
+  .logout-button {
+    padding: 10px 15px;
+    font-size: 14px;
+    background-color: #ff4d4f;  /* Red background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .logout-button:hover {
+    background-color: #ff1f1f;  /* Darker red on hover */
+  }
+
+  

@@ -14,6 +14,7 @@ const http = require('http');
 
 const authRoutes = require('./routes/auth');
 const documentRoutes = require('./routes/documents');
+const userRoutes = require('./routes/users');
 
 const app = express();
 
@@ -27,14 +28,12 @@ app.use(
 app.use(express.json());
 
 // Connect to MongoDB
-mongoose.connect('mongodb://localhost/document_data', {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-});
+mongoose.connect('mongodb://localhost/document_data', {});
 
 // Routes
 app.use('/api/auth', authRoutes);
 app.use('/api/documents', documentRoutes);
+app.use('/api/users', userRoutes);
 
 const server = http.createServer(app);
 
@@ -75,13 +74,14 @@ io.on("connection", socket =>{
             return; // Exit if no document is found
         }
 
-        // Fetch the user and check ownership
+        // Fetch the user and check if the user has access permissions
         const user = await User.findById(userId);
-        if (!user || !user.documents.includes(documentId)) {
-            socket.emit('error', { message: 'Access denied. You do not own this document.' });
-            return;
+        if (!user || (!document.usersWithAccess.includes(user._id))) {
+            socket.emit('error', { message: 'Access denied.' });
+            return; //Exit if user doesn't have access
         }
 
+        //Validation complete, we can continue to real time collaborative editor logic
 
         socket.join(documentId) //put this connection into the room labeled by documentId
 

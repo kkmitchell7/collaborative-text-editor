@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import './styles.css'
 
 export default function Login() {
     const [username, setUsername] = useState('');
@@ -33,16 +34,17 @@ export default function Login() {
     };
 
     return (
-        <div>
+        <div className="login-container">
             <h1>Login</h1>
-            {error && <p style={{ color: 'red' }}>{error}</p>}
-            <form onSubmit={handleSubmit}>
+            {error && <p className="error-message">{error}</p>}
+            <form onSubmit={handleSubmit} className="login-form">
                 <input
                     type="username"
                     placeholder="Username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                     required
+                    className="input-field"
                 />
                 <input
                     type="password"
@@ -50,10 +52,11 @@ export default function Login() {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
+                    className="input-field"
                 />
-                <button type="submit">Login</button>
+                <button type="submit" className="submit-button">Login</button>
             </form>
-            <button onClick={() => navigate('/signup')}>Sign Up</button>
+            <button onClick={() => navigate('/signup')} className="signup-button">Sign Up</button>
         </div>
     );
 }

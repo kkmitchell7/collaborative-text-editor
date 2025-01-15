@@ -1,5 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import './styles.css'
 
 export default function Signup() {
     const navigate = useNavigate();
@@ -25,20 +26,30 @@ export default function Signup() {
     };
 
     return (
-        <div>
+        <div className="signup-container">
             <h1>Signup</h1>
-            <form onSubmit={handleSignup}>
-                <div>
+            <form onSubmit={handleSignup} className="signup-form">
+                <div className="input-group">
                     <label>Username:</label>
-                    <input type="text" name="username" required />
+                    <input 
+                        type="text" 
+                        name="username" 
+                        required 
+                        className="input-field"
+                    />
                 </div>
-                <div>
+                <div className="input-group">
                     <label>Password:</label>
-                    <input type="password" name="password" required />
+                    <input 
+                        type="password" 
+                        name="password" 
+                        required 
+                        className="input-field"
+                    />
                 </div>
-                <button type="submit">Signup</button>
+                <button type="submit" className="submit-button">Signup</button>
             </form>
-            <button onClick={() => navigate('/')}>Back to Login</button>
+            <button onClick={() => navigate('/')} className="back-to-login-button">Back to Login</button>
         </div>
     );
 }

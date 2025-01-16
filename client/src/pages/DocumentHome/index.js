@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { Navigate, useNavigate } from 'react-router-dom';
-import TitleModal from '../../components/TitleModal'
+import CreateDocumentModal from '../../components/CreateDocumentModal'
 import DocumentsGrid from '../../components/DocumentsGrid'
 import './styles.css'
 
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
-    const [isModalOpen, setModalOpen] = useState(false);
+    const [isModalOpen, setModalOpen] = useState(false); //Used to open and close the create document/title modal
     const [selectedOption, setSelectedOption] = useState('All Documents');
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -122,7 +122,7 @@ export default function Documents() {
             <ul>
                 <DocumentsGrid documents={documents} navigate={navigate}/>
             </ul>
-            <TitleModal
+            <CreateDocumentModal
                 isOpen={isModalOpen}
                 onClose={() => setModalOpen(false)} // Close the modal
             />

@@ -3,13 +3,12 @@ import './styles.css'
 import ShareDocumentModal from '../ShareDocumentModal'
 import moment from 'moment';
 
-export default function DocumentIcon({title, id, navigate, isOwner,lastUpdated }) {
 
+export default function DocumentIcon({title, id, navigate, isOwner,lastUpdated }) {
     const token = localStorage.getItem('token');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-    const [isModalOpen, setModalOpen] = useState(false);
-
+    const [isModalOpen, setModalOpen] = useState(false); //used to open the share document modal
 
     const deleteDocument = async () => {
       try {
@@ -39,7 +38,7 @@ export default function DocumentIcon({title, id, navigate, isOwner,lastUpdated }
         <>
           <button
             className="document-delete-button"
-            onClick={deleteDocument} // Calls the delete function
+            onClick={deleteDocument} // Calls the delete document function
           >
             <i className="fas fa-trash-alt"></i> 
           </button>

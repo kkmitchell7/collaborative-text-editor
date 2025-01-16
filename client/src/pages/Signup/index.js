@@ -5,7 +5,7 @@ import './styles.css'
 export default function Signup() {
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
-    const [countdown, setCountdown] = useState(3);
+    const [countdown, setCountdown] = useState(3); //countdown to redirect user after successful login
     
     const navigate = useNavigate();
     const backendUrl = process.env.REACT_APP_BACKEND_URL;

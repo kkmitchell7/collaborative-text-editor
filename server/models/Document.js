@@ -4,7 +4,7 @@ const {Schema, model, mongoose} = require('mongoose')
  * Document Schema
  * 
  * @typedef {Object} Document
- * @property {string} title - The title of the document. Defaults to 'Untitled' if not provided.
+ * @property {string} title - The title of the document. Defaults to 'Untitled' if not provided. Has a maxlength of 20 characters
  * @property {Object} data - The actual content of the document, stored as an object. 
  * @property {Date} createdAt - The timestamp when the document was created. Defaults to the current date and time.
  * @property {mongoose.Schema.Types.ObjectId} owner - The ID of the user who owns the document. References the 'User' model.

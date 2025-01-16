@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
  * User Schema
  * 
  * @typedef {Object} User
- * @property {string} username - The username of the user (unique and required)
+ * @property {string} username - The username of the user (unique and required). Has a maxlength of 15 characters
  * @property {string} password - The password of the user (required)
  */
 

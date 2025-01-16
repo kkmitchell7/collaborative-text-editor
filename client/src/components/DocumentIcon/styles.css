@@ -112,7 +112,7 @@
 
 .last-updated-text {
   font-size: 7px;  /* Smaller text */
-  color: rgb(177, 176, 176);      /* Grey color */
+  color: rgb(177, 176, 176);  
   text-align: right;  /* Align to the right */
   margin-top: 5px;   /* Space above the text */
   font-weight: 300;

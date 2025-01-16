@@ -81,7 +81,7 @@
   margin-bottom:20px;
   width: 50%;
   border: 1px solid #ccc;  /* Border around the entire slider container */
-  border-radius: 5px;  /* Optional: rounds the corners of the container */
+  border-radius: 5px;
 }
 
 /* Remove the border on the first button (leftmost) */

@@ -4,17 +4,20 @@ import ManageUsersList from '../ManageUsersList'
 
 
 export default function ShareDocumentModal({isOpen, onClose, documentId}) {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    const token = localStorage.getItem('token');
+    
     const [username, setUsername] = useState('');  // State for username input
     const [usersWithAccess, setUsersWithAccess] = useState([]);
     const [error, setError] = useState('');
     const [message, setMessage] = useState('');
-    const [updateList, setUpdateList] = useState(0);
+    const [updateList, setUpdateList] = useState(0); //Used to tell whether the list of users that have access to the document has changed
 
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
-    const token = localStorage.getItem('token');
+    
 
     const handleUsernameChange = (e) => setUsername(e.target.value);
     
+    //handle closing of the modal
     const handleOnClose = () =>{
         setError('');
         setMessage('')
@@ -84,8 +87,7 @@ export default function ShareDocumentModal({isOpen, onClose, documentId}) {
             fetchUsersWithAccess();
         }
         
-    },[backendUrl,token,documentId,updateList]) //need to run this every time message changes because we've successfully removed or added someone
-
+    },[backendUrl,token,documentId,updateList])
 
 
     return isOpen ? (

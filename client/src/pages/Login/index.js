@@ -3,12 +3,12 @@ import { useNavigate } from 'react-router-dom';
 import './styles.css'
 
 export default function Login() {
+    const backendUrl = process.env.REACT_APP_BACKEND_URL;
+    
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
-    const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     const handleSubmit = async (e) => {
         e.preventDefault();

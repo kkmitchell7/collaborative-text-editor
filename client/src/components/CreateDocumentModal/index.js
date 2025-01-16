@@ -3,11 +3,13 @@ import './styles.css'
 import { useNavigate } from 'react-router-dom';
 
 const TitleModal = ({ isOpen, onClose }) => {
-    const [title, setTitle] = useState('');
-    const [error, setError] = useState('');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const userId = JSON.parse(localStorage.getItem('userId'));
     const token = localStorage.getItem('token');
+    
+    const [title, setTitle] = useState('');
+    const [error, setError] = useState('');
+    
 
     const navigate = useNavigate();
 

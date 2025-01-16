@@ -72,48 +72,50 @@
     background-color: #ff1f1f;  /* Darker red on hover */
   }
 
+/* Container for the slider buttons */
+.slider-container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-left:30px;
+  margin-bottom:20px;
+  width: 50%;
+  border: 1px solid #ccc;  /* Border around the entire slider container */
+  border-radius: 5px;  /* Optional: rounds the corners of the container */
+}
 
-  .filter-container {
-    position: relative;
-    display: inline-block;
-    margin-top: 0;
-  
-  }
-  
-  .filter-button {
-    padding: 10px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    cursor: pointer;
-    font-size: 16px;
-  }
-  
-  .filter-button:hover {
-    background-color: #45a049;
-  }
-  
-  .dropdown-menu {
-    position: absolute;
-    left: 0;
-    top: 100%;
-    background-color: #fff;
-    border: 1px solid #ddd;
-    width: 100%;
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    z-index: 1000;
-  }
-  
-  .dropdown-menu li {
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .dropdown-menu li:hover {
-    background-color: #f1f1f1;
-  }
+/* Remove the border on the first button (leftmost) */
+.slider-button:first-child {
+  border-left: none;
+}
 
-  
+/* Style for each button */
+.slider-button {
+  padding: 10px 20px;
+  background-color: #ddd;
+  color: #333;
+  border: none;  /* Remove the border between the buttons */
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  border-radius: 5px;
+  flex: 1;  /* Makes the buttons take equal space */
+  text-align: center;
+}
+
+.slider-button:hover {
+  background-color: #bbb;
+}
+
+/* Highlight the active button */
+.slider-button.active {
+  background-color: #4CAF50;
+  color: white;
+  font-weight: bold;
+}
+
+/* Style for the buttons when not active */
+.slider-button:not(.active) {
+  background-color: #f4f4f4;
+  color: #888;
+}

@@ -72,18 +72,30 @@ export default function Documents() {
                     Create New Document 
                 </button>
 
-                <div className="filter-container">
-                    <button className="filter-button" onClick={toggleDropdown}>
-                        {selectedOption} <span>{isFilterOpen ? '▲' : '▼'}</span>
-                    </button>
-                    {isFilterOpen && (
-                        <ul className="dropdown-menu">
-                        <li onClick={() => handleOptionClick('My Documents')}>My Documents</li>
-                        <li onClick={() => handleOptionClick('Shared with Me')}>Shared with Me</li>
-                        <li onClick={() => handleOptionClick('All Documents')}>All Documents</li>
-                        </ul>
-                    )}
-                </div>
+            
+            </div>
+
+            <div className="slider-container">
+                <button
+                    className={`slider-button ${selectedOption === 'All Documents' ? 'active' : ''}`}
+                    onClick={() => handleOptionClick('All Documents')}
+                >
+                    All Documents
+                </button>
+                <button
+                    style={{ borderRight: 'none'}}
+                    className={`slider-button ${selectedOption === 'My Documents' ? 'active' : ''}`}
+                    onClick={() => handleOptionClick('My Documents')}
+                >
+                    My Documents
+                </button>
+                <button
+                    className={`slider-button ${selectedOption === 'Shared with Me' ? 'active' : ''}`}
+                    onClick={() => handleOptionClick('Shared with Me')}
+                >
+                    Shared with Me
+                </button>
+                
             </div>
 
             

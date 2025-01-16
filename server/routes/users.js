@@ -37,6 +37,39 @@ router.get('/ID/:username', async (req, res) => {
     }
 });
 
+/**
+ * GET /api/users/username/:userId
+ * Get the username associated with an ID
+ * 
+ * @param {string} userId - the ID of the user which we're finding their username
+ * 
+ * @returns {Object} 400 - An error message if userId is not included in the request parameters
+ * @returns {Object} 404 - An error message if the user with the specified ID is not found
+ * @returns {Object} 200 - The usename associated with the user ID
+ * @returns {Object} 500 - An error message if an internal server error has occurred
+ */
+router.get('/username/:userId', async (req, res) => {
+    try {
+        const userId= req.params.userId;
+
+        if (!userId) {
+            return res.status(400).json({ error: 'userId is a required parameter' });
+        }
+
+        const user = await User.findOne({_id: userId });
+
+        if (!user) {
+            return res.status(404).json({ error: `User with user ID ${userId} not found` });
+        }
+
+
+        return res.status(200).json({ username: user.username }); 
+    } catch (error) {
+        console.error('Error fetching the users ID:', error);
+        return res.status(500).json({ error: 'Failed to fetch the users ID' });
+    }
+});
+
 
 
 /**

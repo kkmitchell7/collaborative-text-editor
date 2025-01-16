@@ -62,10 +62,6 @@ export default function Documents() {
         }
     },[selectedOption, userId, token, backendUrl]);
 
-    useEffect(() => {
-        console.log(documents);  // Log documents whenever they change
-    }, [documents]);
-
     const handleLogout = () => {
         // Clear user and token from localStorage
         localStorage.removeItem('userId');

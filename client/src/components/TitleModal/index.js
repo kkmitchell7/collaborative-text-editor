@@ -58,6 +58,7 @@ const TitleModal = ({ isOpen, onClose }) => {
                 <input
                     type="text"
                     className="modal-input"
+                    maxlength="20"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="Enter title"

@@ -1,0 +1,25 @@
+.manage-users-list {
+    margin: 5px;
+  }
+  
+  .username-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
+  
+  .revoke-button {
+    background-color: red;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    margin-left:10px;
+  }
+  
+  .revoke-button:hover {
+    background-color: darkred;
+  }

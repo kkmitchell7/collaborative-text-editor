@@ -44,6 +44,7 @@ export default function Login() {
                     onChange={(e) => setUsername(e.target.value)}
                     required
                     className="input-field"
+                    maxlength="15"
                 />
                 <input
                     type="password"

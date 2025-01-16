@@ -57,6 +57,9 @@ router.post('/login', async (req, res) => {
     if (!username || !password){
         return res.status(400).json({error: 'Username and password are required in the request body to log in a user'})
     }
+    if (username.length >15){
+        return res.status(400).json({error: 'Username must be 15 characters or less'})
+    }
 
     try {
         const user = await User.findOne({ username });

@@ -67,6 +67,7 @@ export default function Signup() {
                     <input 
                         type="text" 
                         name="username" 
+                        maxlength="15"
                         required 
                         className="input-field"
                     />

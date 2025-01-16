@@ -237,7 +237,7 @@ router.get('/:documentId/access', async (req, res) => {
             return res.status(400).json({ error: 'documentId is a required parameter' });
         }
 
-        const document = await Document.findById(documentId).populate('usersWithAccess');
+        const document = await Document.findById(documentId).populate('usersWithAccess', 'username _id');
 
         if (!document){
             res.status(404).json({error:`Document not found with id: ${documentId}`})

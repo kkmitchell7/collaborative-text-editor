@@ -65,3 +65,7 @@ button {
 button:hover {
     background-color: #45a049;
 }
+
+.manage-users-list {
+    padding: 20px;
+}

@@ -7,7 +7,6 @@ import './styles.css'
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
-    const [isFilterOpen, setIsFilterOpen] = useState(false);
     const [selectedOption, setSelectedOption] = useState('All Documents');
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -20,22 +19,52 @@ export default function Documents() {
     // Fetch documents when the component loads
     useEffect(() => {
         const fetchDocuments = async () => {
-            try {
-                const response = await fetch(`${backendUrl}/api/users/${userId}/documents/accessible`, {
-                    method: 'GET',
-                    headers: { Authorization: `Bearer ${token}` }
-                });
-                const {documents} = await response.json();
-                setDocuments(documents);
-            } catch (error) {
-                console.error('Error fetching documents:', error);
+            if (selectedOption === 'All Documents'){
+                try {
+                    const response = await fetch(`${backendUrl}/api/users/${userId}/documents/accessible`, {
+                        method: 'GET',
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    const {documents} = await response.json();
+                    setDocuments(documents);
+                } catch (error) {
+                    console.error('Error fetching all documents:', error);
+                }
+            } else if (selectedOption === 'My Documents'){
+                try {
+                    const response = await fetch(`${backendUrl}/api/users/${userId}/documents/owned`, {
+                        method: 'GET',
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    const {documents} = await response.json();
+                    setDocuments(documents);
+                } catch (error) {
+                    console.error('Error fetching my documents:', error);
+                }
+                
+            }else if (selectedOption === 'Shared With Me'){
+                try {
+                    const response = await fetch(`${backendUrl}/api/users/${userId}/documents/shared`, {
+                        method: 'GET',
+                        headers: { Authorization: `Bearer ${token}` }
+                    });
+                    const {documents} = await response.json();
+                    setDocuments(documents);
+                } catch (error) {
+                    console.error('Error fetching shared with me documents:', error);
+                }
             }
+            
         };
 
-        if (token && userId) {
+        if (token && userId && selectedOption) {
             fetchDocuments();
         }
-    },[]);
+    },[selectedOption, userId, token]);
+
+    useEffect(() => {
+        console.log(documents);  // Log documents whenever they change
+    }, [documents]);
 
     const handleLogout = () => {
         // Clear user and token from localStorage
@@ -45,14 +74,8 @@ export default function Documents() {
         navigate('/login');  // Go to login page
       };
 
-
-    const toggleDropdown = () => {
-        setIsFilterOpen(!isFilterOpen);
-    };
-
     const handleOptionClick = (option) => {
         setSelectedOption(option);
-        setIsFilterOpen(false);  // Close the dropdown after selection
     };
 
     if (!token) {
@@ -90,8 +113,8 @@ export default function Documents() {
                     My Documents
                 </button>
                 <button
-                    className={`slider-button ${selectedOption === 'Shared with Me' ? 'active' : ''}`}
-                    onClick={() => handleOptionClick('Shared with Me')}
+                    className={`slider-button ${selectedOption === 'Shared With Me' ? 'active' : ''}`}
+                    onClick={() => handleOptionClick('Shared With Me')}
                 >
                     Shared with Me
                 </button>

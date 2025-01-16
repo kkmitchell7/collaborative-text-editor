@@ -9,9 +9,10 @@
 
   .home-button-title {
     display: flex;
-    justify-content: space-between;  /* Ensures space between elements */
+    justify-content: flex-start;  /* Ensures space between elements */
     align-items: center;  /* Vertically center elements */
     width: 100%;
+    gap: 10px; 
   }
   
   
@@ -35,7 +36,7 @@
     cursor: pointer;
     margin-bottom: 20px; /* Space between button and document grid */
     transition: background-color 0.3s ease;
-    margin-right: 20px;  /* Ensures no margin on the left */
+    margin-right: 10px;  /* Ensures no margin on the left */
     position: absolute;
     right: 0;  /* Positions the button all the way to the left */
     
@@ -69,6 +70,50 @@
   
   .logout-button:hover {
     background-color: #ff1f1f;  /* Darker red on hover */
+  }
+
+
+  .filter-container {
+    position: relative;
+    display: inline-block;
+    margin-top: 0;
+  
+  }
+  
+  .filter-button {
+    padding: 10px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+  }
+  
+  .filter-button:hover {
+    background-color: #45a049;
+  }
+  
+  .dropdown-menu {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    width: 100%;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 1000;
+  }
+  
+  .dropdown-menu li {
+    padding: 10px;
+    cursor: pointer;
+  }
+  
+  .dropdown-menu li:hover {
+    background-color: #f1f1f1;
   }
 
   

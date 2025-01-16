@@ -7,6 +7,8 @@ import './styles.css'
 export default function Documents() {
     const [documents, setDocuments] = useState([]);
     const [isModalOpen, setModalOpen] = useState(false);
+    const [isFilterOpen, setIsFilterOpen] = useState(false);
+    const [selectedOption, setSelectedOption] = useState('All Documents');
 
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const userId = JSON.parse(localStorage.getItem('userId'));
@@ -43,6 +45,16 @@ export default function Documents() {
         navigate('/login');  // Go to login page
       };
 
+
+    const toggleDropdown = () => {
+        setIsFilterOpen(!isFilterOpen);
+    };
+
+    const handleOptionClick = (option) => {
+        setSelectedOption(option);
+        setIsFilterOpen(false);  // Close the dropdown after selection
+    };
+
     if (!token) {
         return <Navigate to="/login" />;
     }
@@ -55,11 +67,26 @@ export default function Documents() {
                 </button>
             </div>
             <div className="home-button-title">
-                <h1 className="home-title">Your Documents</h1>
+                <h1 className="home-title"> Documents Home</h1>
                 <button className="create-doc-button" onClick={() => setModalOpen(true)}>
                     Create New Document 
                 </button>
+
+                <div className="filter-container">
+                    <button className="filter-button" onClick={toggleDropdown}>
+                        {selectedOption} <span>{isFilterOpen ? '▲' : '▼'}</span>
+                    </button>
+                    {isFilterOpen && (
+                        <ul className="dropdown-menu">
+                        <li onClick={() => handleOptionClick('My Documents')}>My Documents</li>
+                        <li onClick={() => handleOptionClick('Shared with Me')}>Shared with Me</li>
+                        <li onClick={() => handleOptionClick('All Documents')}>All Documents</li>
+                        </ul>
+                    )}
+                </div>
             </div>
+
+            
             
             <ul>
                 <DocumentsGrid documents={documents} navigate={navigate}/>

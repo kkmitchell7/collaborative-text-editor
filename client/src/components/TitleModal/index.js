@@ -28,8 +28,9 @@ const TitleModal = ({ isOpen, onClose }) => {
         };
 
         if (token && userId) {
-
-            if (!title) {
+            if (title.length > 20) {
+                setError('Title must be less than 20 characters');
+            } else if (!title) {
                 setError('Title is required');
             } else {
                 setError('');

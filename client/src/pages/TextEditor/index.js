@@ -26,7 +26,6 @@ export default function TextEditor() {
     
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
     const userId = JSON.parse(localStorage.getItem('userId'));
-    const token = localStorage.getItem('token');
 
     /**
      * Opens and cleans up web socket connection
@@ -64,7 +63,7 @@ export default function TextEditor() {
         socket.emit('get-document',{documentId,userId})
 
 
-    },[socket,quill,documentId])
+    },[socket,quill,documentId, userId])
 
     
 
@@ -139,7 +138,7 @@ export default function TextEditor() {
         return <p>{error}</p>;  // Show error message if there's an error
     } else {
         return (
-            <div className="container" ref={wrapperRef}></div>  //once mounted in the DOM, react passes div to wrapperRef function
+            <div className="container text-editor-container" ref={wrapperRef}></div>  //once mounted in the DOM, react passes div to wrapperRef function
         );
     }
 

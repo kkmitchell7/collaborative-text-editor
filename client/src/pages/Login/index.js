@@ -36,7 +36,6 @@ export default function Login() {
     return (
         <div className="login-container">
             <h1>Login</h1>
-            {error && <p className="error-message">{error}</p>}
             <form onSubmit={handleSubmit} className="login-form">
                 <input
                     type="username"
@@ -54,8 +53,10 @@ export default function Login() {
                     required
                     className="input-field"
                 />
+                {error && <p className="error-message">{error}</p>}
                 <button type="submit" className="submit-button">Login</button>
             </form>
+            
             <button onClick={() => navigate('/signup')} className="signup-button">Sign Up</button>
         </div>
     );

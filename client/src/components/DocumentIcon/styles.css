@@ -19,6 +19,8 @@
   padding: 10px;
   background-color: #fff;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 10px;
+  flex-direction: column;
 }
 
 /* Styling for the icon button */
@@ -108,3 +110,10 @@
   background-color: #45a049;
 }
 
+.last-updated-text {
+  font-size: 7px;  /* Smaller text */
+  color: rgb(177, 176, 176);      /* Grey color */
+  text-align: right;  /* Align to the right */
+  margin-top: 5px;   /* Space above the text */
+  font-weight: 300;
+}

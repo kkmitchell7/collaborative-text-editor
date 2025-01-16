@@ -12,6 +12,7 @@ const router = express.Router();
  * 
  * @returns {Object} 201 - An object contianing a new document ID which has been successfully created
  * @returns {Object} 400 - Error message if a userId or title is not provided in the request body
+ * @returns {Object} 400 - Error message if the title is greater than 20 characters
  * @returns {Object} 404 - Error message if a user cannot be found with that id
  * @returns {Object} 500 - Error message if a server error occurs
  * 
@@ -22,6 +23,10 @@ router.post('/', async (req, res) => {
 
         if (!userId || !title) {
             return res.status(400).json({ error: 'userId and title are required in the request body' });
+        }
+
+        if (title.length > 20){
+            return res.status(400).json({ error: 'Title must be less than 20 characters.' });
         }
 
         // Find the user and associate the document with them and add the user to the document's access users

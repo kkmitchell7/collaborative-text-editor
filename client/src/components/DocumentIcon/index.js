@@ -1,15 +1,15 @@
 import React, {useState} from 'react'
-import { Navigate, useNavigate } from 'react-router-dom';
 import './styles.css'
 import ShareDocumentModal from '../ShareDocumentModal'
+import moment from 'moment';
 
-export default function DocumentIcon({title, id }) {
-    const navigate = useNavigate();
+export default function DocumentIcon({title, id, navigate, isOwner,lastUpdated }) {
 
     const token = localStorage.getItem('token');
     const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
     const [isModalOpen, setModalOpen] = useState(false);
+
 
     const deleteDocument = async () => {
       try {
@@ -35,16 +35,22 @@ export default function DocumentIcon({title, id }) {
         </div>
         <div className="document-title">{title}</div>
       </button>
-      <button
-          className="document-delete-button"
-          onClick={deleteDocument} // Calls the delete function
-        >
-        <i className="fas fa-trash-alt"></i> 
-      </button>
-      <button className="document-share-button" onClick={() => setModalOpen(true)}>Share</button>
-      
-
-      
+      {isOwner && (
+        <>
+          <button
+            className="document-delete-button"
+            onClick={deleteDocument} // Calls the delete function
+          >
+            <i className="fas fa-trash-alt"></i> 
+          </button>
+          <button className="document-share-button" onClick={() => setModalOpen(true)}>
+            Share
+          </button>
+        </>
+      )}
+      <p className="last-updated-text">
+        Edited: {moment(lastUpdated).format('MMMM Do YYYY, h:mm a')}
+      </p>
       <ShareDocumentModal isOpen={isModalOpen} onClose={() => setModalOpen(false)} documentId={id}/>
     </div>
   )

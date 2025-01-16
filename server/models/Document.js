@@ -11,11 +11,15 @@ const {Schema, model, mongoose} = require('mongoose')
  * @property {mongoose.Schema.Types.ObjectId[]} usersWithAccess - An array of user IDs who have access to the document, including the owner. References the 'User' model.
  */
 const Document = new Schema({
-    title:{type: String, default: 'Untitled'},
+    title:{type: String, default: 'Untitled', maxlength: [20, 'Title must be less than 20 characters']},
     data: Object,
     createdAt: {
         type: Date,
         default: Date.now // Default timestamp for when the document is created
+    },
+    lastUpdatedAt: {
+        type:Date,
+        default:Date.now
     },
     owner: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
     usersWithAccess: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }] //Includes owner

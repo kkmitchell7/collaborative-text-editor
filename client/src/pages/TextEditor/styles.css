@@ -1,6 +1,14 @@
 *, *::before, *::after {
     box-sizing: border-box;
   }
+
+  .text-editor-container * {
+    font-family:'Montserrat', sans-serif;  /* Overrides global font-family */
+    font-weight: normal;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
   
   body {
     background-color: #F3F3F3;

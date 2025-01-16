@@ -15,8 +15,9 @@ const JWT_SECRET = process.env.JWT_SECRET;
  * @body {string} password - The password of the user to be created
  * 
  * @returns {Object} 400 - Error message if the username or password have not been required in the request body
+ * @returns {Object} 400 - Error message if the username is already taken
  * @returns {Object} 200 - A success message that the user has been created
- * @returns {Object} 500 - Error message if an internal server error has occured
+ * @returns {Object} 500 - Error message if an internal server error has occured, like if the username is taken
  */
 router.post('/register', async (req, res) => {
     const { username, password } = req.body;
@@ -25,6 +26,12 @@ router.post('/register', async (req, res) => {
     }
 
     try {
+        //Ensure no duplicate usernames
+        const existingUser = await User.findOne({ username });
+        if (existingUser) {
+            return res.status(400).json({ error: 'Username is already taken' });
+        }
+
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await User.create({ username, password: hashedPassword });
         return res.status(201).json({ message: 'User registered successfully' });

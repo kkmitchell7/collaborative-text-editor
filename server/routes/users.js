@@ -56,7 +56,7 @@ router.get('/:userId/documents/owned', async (req, res) => {
             return res.status(400).json({ error: 'userId is a required parameter' });
         }
 
-        const documents = await Document.find({ owner: userId });
+        const documents = await Document.find({ owner: userId }).sort({ lastUpdatedAt: -1 });
 
         return res.status(200).json({documents:documents}); 
     } catch (error) {
@@ -86,7 +86,7 @@ router.get('/:userId/documents/shared', async (req, res) => {
         const documents = await Document.find({
             usersWithAccess: userId,            // User is in the usersWithAccess array
             owner: { $ne: userId }              // User is NOT the owner
-        });
+        }).sort({ lastUpdatedAt: -1 });
 
 
         return res.status(200).json({documents:documents}); 
@@ -117,7 +117,7 @@ router.get('/:userId/documents/accessible', async (req, res) => {
 
         const documents = await Document.find({
             usersWithAccess: userId
-        });
+        }).sort({ lastUpdatedAt: -1 });
 
 
         return res.status(200).json({documents:documents}); 

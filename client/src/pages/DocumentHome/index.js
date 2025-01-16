@@ -60,7 +60,7 @@ export default function Documents() {
         if (token && userId && selectedOption) {
             fetchDocuments();
         }
-    },[selectedOption, userId, token]);
+    },[selectedOption, userId, token, backendUrl]);
 
     useEffect(() => {
         console.log(documents);  // Log documents whenever they change

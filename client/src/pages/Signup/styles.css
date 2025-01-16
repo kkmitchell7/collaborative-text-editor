@@ -31,7 +31,7 @@ h1 {
 
 .input-group {
     width: 100%;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
 }
 
 .input-group label {
@@ -86,4 +86,9 @@ h1 {
 .back-to-login-button:hover {
     background-color: #4CAF50;
     color: white;
+}
+
+.success-message {
+    color: green;
+    margin-bottom: 10px;
 }

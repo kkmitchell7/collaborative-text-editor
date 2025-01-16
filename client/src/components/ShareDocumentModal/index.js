@@ -5,6 +5,7 @@ import React, {useState} from 'react'
 export default function ShareDocumentModal({isOpen, onClose, documentId}) {
     const [username, setUsername] = useState('');  // State for username input
     const [error, setError] = useState('');
+    const [message, setMessage] = useState('');
 
     // Handle input change for username
     const handleUsernameChange = (e) => setUsername(e.target.value);
@@ -22,7 +23,7 @@ export default function ShareDocumentModal({isOpen, onClose, documentId}) {
             const userData = await userResponse.json();
 
             if (userResponse.status !== 200) {
-                alert(userData.error);
+                setError(userData.error);
                 return;
             }
 
@@ -40,14 +41,16 @@ export default function ShareDocumentModal({isOpen, onClose, documentId}) {
             const updateData = await updateResponse.json();
 
             if (updateResponse.status === 200) {
-                alert('Access granted successfully!');
+                setMessage('Access granted successfully!');
                 handleOnClose(); // Close the modal
+            } else if (updateData.error === `User with ID: ${userId} already has access to the document`) {
+                setError(`${username} already has access to the document`);
             } else {
-                alert(updateData.error);
+                setError('Something went wrong on our end');
             }
         } catch (error) {
             console.error('Error granting access:', error);
-            alert('An error occurred while granting access.');
+            setError('An error occurred while granting access.');
         }
     };
 
@@ -63,6 +66,8 @@ export default function ShareDocumentModal({isOpen, onClose, documentId}) {
                     onChange={handleUsernameChange}
                     placeholder="Enter Username"
                 />
+                {error && <p className="error-message">{error}</p>}
+                {message && <p className="success-message">{message}</p>}
                 <button onClick={handleOnClose} className="modal-button">Cancel</button>
                 <button onClick={handleShareDocument} className="modal-button">Share</button>
             </div>

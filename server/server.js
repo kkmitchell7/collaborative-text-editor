@@ -94,7 +94,7 @@ io.on("connection", socket =>{
 
         //Listen for save document emission
         socket.on("save-document", async data =>{
-            await Document.findByIdAndUpdate(documentId, {data})
+            await Document.findByIdAndUpdate(documentId, {data:data,lastUpdatedAt:Date.now()})
         })} catch (error) {
             console.error('Error handling document:', error);
             socket.emit('error', { message: 'An error occurred while processing the document' });

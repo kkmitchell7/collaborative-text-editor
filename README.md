@@ -1,13 +1,22 @@
 # collaborative-text-editor
-Real Time Collaborative Text Editor (Google Docs Clone) made with React, Socket.io, and MongoDB
+Real Time Collaborative Text Editor made with React, Socket.io, and MongoDB
 
-This is a real-time collaborative text editor built with **React**, **Socket.IO**, and **MongoDB**, mimicking the core functionality of Google Docs. Users can edit shared documents simultaneously, and changes are synchronized in real-time across all connected clients.
+This is a real-time collaborative text editor built with **React**, **Socket.IO**, and **MongoDB**, mimicking the core functionality of Google Docs. Users can sign up, log in, create documents, share them with others, and collaborate on them in real-time, similar to Google Docs. Changes are synchronized in real-time across all connected clients, and document access permissions are fully manageable.
 
 ## Features
-- **Real-Time Collaboration**: Changes made by one user are instantly reflected for all others.
+- **User Authentication**: Users can sign up and log in to securely access and manage documents.
+- **Real-Time Collaboration**: Collaborate on documents with other users in real-time. Changes made by one user are instantly reflected for all others.
 - **Rich Text Editing**: Built with the Quill.js rich text editor.
 - **Persistent Data**: Documents are stored and retrieved from a MongoDB database.
 - **Room-Based Collaboration**: Each document has a unique ID, allowing users to collaborate in separate rooms.
+- **Document Management**: 
+  - **Create Documents**: Users can create new documents.
+  - **Share Documents**: Share documents with other users and assign access permissions.
+  - **Revoke Access**: Remove a user's access to a document.
+  - **Delete Documents**: Delete documents from the system.
+  - **View Shared Documents**: View documents that have been shared with the user.
+- **Persistent Storage**: All changes are automatically saved and synced across clients.
+
 
 ## Tech Stack
 - **Frontend**: React, Quill.js
@@ -44,6 +53,6 @@ This is a real-time collaborative text editor built with **React**, **Socket.IO*
 
 5. **Access the App**:
     Open your browser and go to http://localhost:3000
-    Each document is identified by a unique ID in the URL. For example: http://localhost:3000/documents/id
+    You can then create an account, login, and manage your documents as well as sharing permissions for each document
 
 

@@ -1,5 +1,5 @@
-# collaborative-text-editor
-Real Time Collaborative Text Editor made with React, Socket.io, and MongoDB
+# creative-collaborative-text-editor
+Real-time collaborative text editor designed specially for creative writers, made with React, Socket.io, and MongoDB
 
 This is a real-time collaborative text editor built with **React**, **Socket.IO**, and **MongoDB**, mimicking the core functionality of Google Docs. Users can sign up, log in, create documents, share them with others, and collaborate on them in real-time, similar to Google Docs. Changes are synchronized in real-time across all connected clients, and document access permissions are fully manageable. OpenAI's Chat GPT is integrated into the project in two areas: for creative writing prompt generation and through a chat bot named Inspira. Inspira has access to user's documents to give specialized feedback as well as support writers in brainstorming, especially when faced with writers block.
 
